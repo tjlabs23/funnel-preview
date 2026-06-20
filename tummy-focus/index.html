@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Digestive Health Quiz — JJ Smith (Tummy Focus)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<!--
+  Tummy Focus — Quiz Funnel (working DEMO prototype)
+  JJ Quiz Funnel Methodology, instance #2. Self-contained, mobile-first.
+  Built to demonstrate the FLOW/UX to JJ — product names, prices, ingredients and
+  testimonials are PLACEHOLDERS (marked DEMO) until real Tummy Focus facts are dropped in.
+  PLACEHOLDERS marked TODO(DEV): wire opt-in -> ESP (Klaviyo), events -> Meta Pixel/CAPI,
+  CTAs -> real Shopify cart/subscription endpoints. No real data is sent in this prototype.
+-->
+<style>
+:root{--green:#2C6562;--pink:#CD5688;--blush:#FBEEF2;--ink:#33303a;--soft:#6b6470;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink);background:linear-gradient(170deg,#FBEEF2,#F6E5EA 60%,#EFE0EA);min-height:100%;line-height:1.5}
+.demo-ribbon{background:#2C6562;color:#fff;text-align:center;font-size:11.5px;font-weight:700;letter-spacing:.3px;padding:6px 12px}
+.demo-ribbon b{color:#FFD9E7}
+.wrap{max-width:560px;margin:0 auto;padding:22px 18px 60px;min-height:100vh;display:flex;flex-direction:column}
+.brand{text-align:center;font-weight:900;color:var(--green);letter-spacing:2px;font-size:15px;text-transform:uppercase;margin-bottom:4px}
+.brand b{color:var(--pink)}
+.prog{height:7px;background:#efd9e2;border-radius:99px;margin:14px 0 22px;overflow:hidden}
+.prog>i{display:block;height:100%;width:0;background:var(--pink);border-radius:99px;transition:width .35s ease}
+.screen{display:none;animation:fade .35s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.kick{color:var(--pink);font-weight:800;letter-spacing:2px;font-size:12px;text-transform:uppercase;text-align:center;margin-bottom:8px}
+h1{font-weight:900;color:var(--green);font-size:30px;line-height:1.12;text-align:center;letter-spacing:-.5px}
+h1 .s{font-family:'Dancing Script',cursive;color:var(--pink);font-weight:700;font-size:38px}
+.sub{text-align:center;color:var(--soft);font-size:16px;margin:12px 0 22px}
+.q{font-weight:800;color:var(--green);font-size:21px;line-height:1.25;margin:6px 0 18px}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid #efd9e2;border-radius:16px;padding:16px 18px;font:600 16px Montserrat,sans-serif;color:var(--ink);margin:10px 0;cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--pink)}
+.opt.sel{border-color:var(--pink);background:#fff0f6;color:var(--pink)}
+.btn{display:block;width:100%;background:var(--pink);color:#fff;border:none;border-radius:99px;padding:17px;font:800 17px Montserrat,sans-serif;cursor:pointer;margin-top:18px;box-shadow:0 8px 22px rgba(205,86,136,.32)}
+.btn:disabled{opacity:.4;box-shadow:none;cursor:not-allowed}
+.btn.green{background:var(--green);box-shadow:0 8px 22px rgba(44,101,98,.3)}
+.cta-note{text-align:center;color:var(--soft);font-size:12px;margin-top:10px}
+.cover{text-align:center;padding-top:24px}
+.badge{display:inline-block;background:#fff;border-radius:99px;padding:7px 16px;font-weight:800;color:var(--green);font-size:13px;margin:18px 0 6px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.stars{color:#E6A93B;font-size:15px;letter-spacing:2px}
+.field{width:100%;border:2px solid #efd9e2;border-radius:14px;padding:15px 16px;font:600 16px Montserrat,sans-serif;margin:8px 0}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--soft);margin:10px 2px;text-align:left}
+.consent input{margin-top:3px}
+.gauge-wrap{text-align:center;margin:14px 0 6px}
+.gauge{position:relative;width:230px;height:118px;margin:0 auto}
+.gauge svg{width:230px;height:118px;overflow:visible}
+.needle{transform-origin:115px 110px;transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.gauge-label{font-weight:900;color:var(--green);font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-top:8px}
+.result-name{font-weight:900;color:var(--green);font-size:24px;text-align:center;line-height:1.2;margin:6px 0}
+.result-name .hl{color:var(--pink)}
+.readback{background:#fff;border-radius:16px;padding:18px 20px;margin:16px 0;font-size:15.5px;color:#3f3a45;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.readback b{color:var(--green)}
+.wheel{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0}
+.wheel span{background:#fff;border:1px solid #f0d9e2;border-radius:99px;padding:7px 13px;font-weight:700;font-size:12.5px;color:var(--green)}
+.offer{background:#fff;border-radius:20px;padding:20px;margin:18px 0;box-shadow:0 8px 28px rgba(120,60,90,.12)}
+.offer h3{color:var(--green);font-weight:900;font-size:19px;margin-bottom:4px}
+.plan{border:2px solid #efd9e2;border-radius:16px;padding:14px 16px;margin:10px 0;cursor:pointer;position:relative}
+.plan.sel{border-color:var(--pink);background:#fff7fb}
+.plan .tag{position:absolute;top:-10px;right:14px;background:var(--green);color:#fff;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;letter-spacing:.5px;text-transform:uppercase}
+.plan .pn{font-weight:800;color:var(--ink);font-size:15px}
+.plan .pp{font-weight:900;color:var(--pink);font-size:18px;margin-top:3px}
+.plan .pp s{color:#b9b2bd;font-weight:600;font-size:14px;margin-right:6px}
+.plan .pd{color:var(--soft);font-size:12.5px;margin-top:3px}
+.guar{background:#EAF3EF;border-radius:14px;padding:14px 16px;margin:14px 0;font-size:14px;color:#244c49}
+.guar b{color:var(--green)}
+.tl{margin:16px 0}
+.tl .row{display:flex;gap:12px;margin:10px 0}
+.tl .day{flex:0 0 64px;font-weight:900;color:var(--pink);font-size:13px}
+.tl .tx{font-size:14px;color:#3f3a45}
+.tcard{background:#fff;border-radius:14px;padding:14px 16px;margin:10px 0;box-shadow:0 3px 12px rgba(0,0,0,.05)}
+.tcard .qt{font-style:italic;color:#3f3a45;font-size:14.5px}
+.tcard .who{font-weight:800;color:var(--pink);font-size:12.5px;margin-top:6px}
+.disc{font-size:11px;color:#9a96a2;margin-top:18px;text-align:center;line-height:1.5}
+.foot{text-align:center;color:#b8a9b3;font-size:11px;margin-top:22px}
+.trust{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0}
+.trust span{font-size:11.5px;color:var(--green);font-weight:700;background:#eef6f3;border-radius:99px;padding:5px 11px}
+.ph{color:#b08; background:#fff0f6; border-radius:5px; padding:0 4px; font-size:.92em}
+.confirm{text-align:center;padding-top:18px}
+.check{width:74px;height:74px;border-radius:50%;background:var(--green);color:#fff;font-size:40px;line-height:74px;margin:0 auto 14px;box-shadow:0 10px 26px rgba(44,101,98,.3)}
+</style>
+</head>
+<body>
+<div class="demo-ribbon">DEMO &mdash; this shows the <b>full funnel flow</b>. Product facts, prices &amp; testimonials are placeholders until real Tummy Focus details are added.</div>
+<div class="wrap">
+  <div class="brand">JJ Smith <b>&bull;</b> Digestive Health Quiz</div>
+  <div class="prog" id="prog"><i id="bar"></i></div>
+
+  <!-- LANDING -->
+  <section class="screen on" id="s-land">
+    <div class="cover">
+      <div class="kick">60-Second Assessment</div>
+      <h1>What's really behind your <span class="s">bloating?</span></h1>
+      <div class="sub">Many women blame food. But constipation and digestive sluggishness may be part of it too. Answer 7 quick questions and get your personalized digestive result &mdash; plus the protocol matched to you.</div>
+      <div class="badge"><span class="stars">★★★★★</span> &nbsp;4.8 from <span class="ph">demo</span> reviews</div>
+      <button class="btn" onclick="start()">Take the Free 60-Second Quiz →</button>
+      <div class="cta-note">No credit card. Instant results. By JJ Smith.</div>
+    </div>
+  </section>
+
+  <!-- QUESTIONS render here -->
+  <section class="screen" id="s-q"></section>
+
+  <!-- OPT-IN -->
+  <section class="screen" id="s-optin">
+    <div class="kick">Almost there</div>
+    <h1>Your result is <span class="s">ready</span></h1>
+    <div class="sub">Tell us where to send your personalized digestive support plan.</div>
+    <input class="field" id="f-name" placeholder="First name" autocomplete="given-name">
+    <input class="field" id="f-email" type="email" placeholder="Email address" autocomplete="email">
+    <input class="field" id="f-phone" type="tel" placeholder="Mobile (optional)" autocomplete="tel">
+    <label class="consent"><input type="checkbox" id="f-sms"><span>Text me (JJ Smith) my quiz results and occasional tips &amp; offers. Recurring automated marketing messages; consent is not a condition of purchase. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel, HELP for help. See <a href="#" target="_blank">Terms</a> &amp; <a href="#" target="_blank">Privacy Policy</a>. <!-- TODO(DEV): real Terms/Privacy URLs; final copy pending legal review --></span></label>
+    <button class="btn" id="optin-btn" onclick="submitOptin()" disabled>Show My Results →</button>
+    <div class="cta-note">We'll never share your info. Unsubscribe anytime.</div>
+  </section>
+
+  <!-- RESULTS + OFFER -->
+  <section class="screen" id="s-result"></section>
+
+  <!-- ORDER CONFIRMATION (demo) -->
+  <section class="screen" id="s-confirm">
+    <div class="confirm">
+      <div class="check">✓</div>
+      <h1>You're <span class="s">all set</span></h1>
+      <div class="sub" id="confirm-line">Your protocol is on its way.</div>
+      <div class="readback" style="text-align:left">In the real funnel, this is where checkout completes on the JJ Smith store, the order fires a <b>Purchase</b> event (with value), the buyer enters the <b>welcome + dosing</b> email/SMS flow, and an <b>Aftersell</b> one-click upsell appears. <span style="color:#9a96a2;font-size:12px;display:block;margin-top:8px">Demo — no real order was placed and no payment was taken.</span></div>
+      <button class="btn green" onclick="location.reload()">↺ Run the demo again</button>
+    </div>
+  </section>
+
+  <div class="foot">Copyright © 2026 By JJ Smith · www.JJSmithOnline.com · @JJSmithOnline<br><span style="color:#cdbcc6">Demo build for review — not a live store.</span></div>
+</div>
+
+<script>
+/* ---------------- DATA ----------------
+   JJ's TF email had 5 questions. This demo keeps all 5 and ADDS the two the
+   methodology calls for: a GOAL question (routes to bundle vs single = AOV) and a
+   READINESS question. Scored questions drive the severity gauge. */
+const QUESTIONS = [
+ {id:"primary_issue", q:"Which bothers you most right now?", opts:[
+   {t:"Bloating", v:"bloating"},
+   {t:"Constipation", v:"constipation"},
+   {t:"Both", v:"both"}]},
+ {id:"bloat_frequency", q:"How often are you bloated?", opts:[
+   {t:"Daily", v:"daily", s:3},
+   {t:"Several times a week", v:"weekly", s:2},
+   {t:"Occasionally", v:"occasional", s:1},
+   {t:"Rarely", v:"rare", s:0}]},
+ {id:"bm_frequency", q:"How often do you have a bowel movement?", opts:[
+   {t:"Every day", v:"daily", s:0},
+   {t:"Every other day", v:"alt_day", s:1},
+   {t:"Every 2–3 days", v:"2_3_days", s:2},
+   {t:"Less often than that", v:"less", s:3}]},
+ {id:"worst_time", q:"When is the bloating worst?", opts:[
+   {t:"Morning", v:"morning"},
+   {t:"Afternoon", v:"afternoon"},
+   {t:"Evening", v:"evening"},
+   {t:"All day", v:"all_day"}]},
+ {id:"duration", q:"How long has this been going on?", opts:[
+   {t:"Less than 6 months", v:"lt6mo", s:0},
+   {t:"6–12 months", v:"6_12mo", s:1},
+   {t:"1–3 years", v:"1_3yr", s:2},
+   {t:"More than 3 years", v:"gt3yr", s:3}]},
+ {id:"goal", q:"What matters most to you right now?", opts:[
+   {t:"Beat the bloat for good", v:"beat_bloat", s:2},
+   {t:"Get regular, comfortable digestion", v:"regularity", s:2},
+   {t:"A flatter, lighter-feeling belly", v:"flat_belly", s:2},
+   {t:"An overall gut-health reset", v:"gut_reset", s:2}]},
+ {id:"readiness", q:"If we showed you a gentle, natural plan that fits your routine, how ready are you to start?", opts:[
+   {t:"Ready to start now", v:"now"},
+   {t:"Ready in the next few days", v:"soon"},
+   {t:"Just exploring", v:"exploring"}]}
+];
+const ISSUE_LABEL = {bloating:"bloating", constipation:"constipation", both:"bloating and constipation"};
+const GOAL_LABEL = {beat_bloat:"beating the bloat", regularity:"regular, comfortable digestion", flat_belly:"a flatter, lighter belly", gut_reset:"an overall gut-health reset"};
+
+let qi = 0;
+const answers = {};
+function track(ev, data){ (window.dataLayer=window.dataLayer||[]).push({event:ev, ...data}); console.log("EVENT", ev, data||""); /* TODO(DEV): Meta Pixel + CAPI */ }
+
+function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on')); document.getElementById(id).classList.add('on'); window.scrollTo(0,0); }
+function setProg(p){ document.getElementById('bar').style.width=p+'%'; }
+function start(){ track('QuizStarted'); qi=0; renderQ(); show('s-q'); }
+
+function renderQ(){
+  const Q = QUESTIONS[qi];
+  setProg(Math.round((qi/(QUESTIONS.length))*100));
+  let h = `<div class="kick">Question ${qi+1} of ${QUESTIONS.length}</div><div class="q">${Q.q}</div>`;
+  Q.opts.forEach((o,idx)=> h += `<button class="opt" onclick="pick(${idx})">${o.t}</button>`);
+  document.getElementById('s-q').innerHTML = h;
+}
+function pick(idx){
+  const Q = QUESTIONS[qi], o = Q.opts[idx];
+  answers[Q.id] = o.v;
+  answers['_s_'+Q.id] = o.s||0;
+  document.querySelectorAll('#s-q .opt').forEach((b,i)=>b.classList.toggle('sel', i===idx));
+  setTimeout(()=>{ qi++; if(qi<QUESTIONS.length){ renderQ(); } else { setProg(100); show('s-optin'); } }, 230);
+}
+
+document.addEventListener('input', e=>{
+  if(['f-email','f-name'].includes(e.target.id)){
+    const ok = /\S+@\S+\.\S+/.test(document.getElementById('f-email').value);
+    document.getElementById('optin-btn').disabled = !ok;
+  }
+});
+function submitOptin(){
+  answers.first_name = document.getElementById('f-name').value;
+  answers.email = document.getElementById('f-email').value;
+  answers.phone = document.getElementById('f-phone').value;
+  answers.sms_consent = document.getElementById('f-sms').checked;
+  // TODO(DEV): POST lead + all answer tags to Klaviyo; fire pixel "Lead"
+  track('QuizCompleted', {email:answers.email, primary_issue:answers.primary_issue, goal:answers.goal});
+  renderResult();
+  show('s-result');
+}
+
+/* ---------------- SCORING (documented rubric) ----------------
+   severity = bloat_frequency(0-3) + bm_frequency(0-3) + duration(0-3) + goal(2)
+   max = 11.  tiers: >=8 High, 4-7 Moderate, <4 Early.  gauge% = round(score/11*100)
+   recommendation: bundle if goal in {flat_belly,gut_reset} OR primary_issue=both OR bm 'less'; else single subscription. */
+function renderResult(){
+  const sc = (answers['_s_bloat_frequency']||0)+(answers['_s_bm_frequency']||0)+(answers['_s_duration']||0)+(answers['_s_goal']||0);
+  const pct = Math.min(100, Math.round(sc/11*100));
+  let tier, name;
+  if(sc>=8){ tier="High"; name='High Digestive Sluggishness &amp; Bloat <span class="hl">Pattern</span>'; }
+  else if(sc>=4){ tier="Moderate"; name='Moderate Bloat &amp; Irregularity <span class="hl">Pattern</span>'; }
+  else { tier="Early"; name='Early Digestive Imbalance <span class="hl">Pattern</span>'; }
+  answers.severity_score = pct; answers.tier = tier;
+
+  const bundle = (answers.goal==='flat_belly' || answers.goal==='gut_reset' || answers.primary_issue==='both' || answers.bm_frequency==='less');
+  answers.recommended_offer = bundle ? 'bundle' : 'subscription_tf';
+
+  const issue = ISSUE_LABEL[answers.primary_issue]||"bloating";
+  const goal = GOAL_LABEL[answers.goal]||"feeling lighter and more regular";
+  const ang = -90 + (pct/100*180);
+
+  document.getElementById('s-result').innerHTML = `
+   <div class="kick">${answers.first_name?('Thanks, '+answers.first_name+' — '):''}Your Digestive Assessment</div>
+   <div class="gauge-wrap">
+     <div class="gauge">
+       <svg viewBox="0 0 230 120">
+         <path d="M15 110 A100 100 0 0 1 215 110" fill="none" stroke="#efd9e2" stroke-width="16" stroke-linecap="round"/>
+         <path d="M15 110 A100 100 0 0 1 215 110" fill="none" stroke="url(#g)" stroke-width="16" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="${314-(pct/100*314)}"/>
+         <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#7FB89B"/><stop offset="1" stop-color="#CD5688"/></linearGradient></defs>
+         <g class="needle" style="transform:rotate(${ang}deg)"><line x1="115" y1="110" x2="115" y2="34" stroke="#2C6562" stroke-width="4" stroke-linecap="round"/><circle cx="115" cy="110" r="8" fill="#2C6562"/></g>
+       </svg>
+       <div class="gauge-label">Low &nbsp;·&nbsp; ${tier} &nbsp;·&nbsp; High</div>
+     </div>
+   </div>
+   <div class="result-name">Your Result: ${name}</div>
+   <div class="readback">You told us your biggest struggle is <b>${issue}</b> and your goal is <b>${goal}</b>. That pattern usually points to <b>digestive sluggishness</b> — when things move slowly, you can feel backed up, heavy, and bloated by evening. The good news: it tends to respond well to the right gentle, natural support. <span style="color:#9a96a2;font-size:12px;display:block;margin-top:8px">This is an educational assessment, not a medical diagnosis.</span></div>
+
+   <div class="offer">
+     <h3>Your Tummy Focus protocol</h3>
+     <div class="wheel"><span>Less Bloating</span><span>Regularity</span><span>Lighter Belly</span><span>Gut Comfort</span><span>Daily Ease</span></div>
+     <p style="font-size:14px;color:#3f3a45;margin:6px 0 4px">Powered by <span class="ph">[Tummy Focus hero ingredient — demo placeholder]</span>, a gentle blend formulated to support comfortable, regular digestion <span class="ph">[study/claim — to confirm]</span>.</p>
+
+     <div class="plan ${bundle?'':'sel'}" id="p-sub" onclick="selPlan('sub')">${bundle?'':'<span class="tag">Recommended</span>'}<div class="pn">90-Day Protocol · Subscribe &amp; Save</div><div class="pp"><s class="ph">$XX</s><span class="ph">$XX</span><span style="font-size:13px;font-weight:700;color:#6b6470">/bottle</span></div><div class="pd">Lowest price for life · ship, pause, or cancel anytime</div></div>
+
+     <div class="plan ${bundle?'sel':''}" id="p-bundle" onclick="selPlan('bundle')">${bundle?'<span class="tag">Recommended</span>':''}<div class="pn">Complete Gut-Reset Bundle (90-day)</div><div class="pp">Tummy Focus + <span class="ph">[complementary product]</span></div><div class="pd">Fastest results — full digestive reset</div></div>
+
+     <div class="plan" id="p-one" onclick="selPlan('one')"><div class="pn">One-Time · Single Bottle</div><div class="pp"><s class="ph">$XX</s><span class="ph">$XX</span></div><div class="pd">Just trying it out</div></div>
+
+     <button class="btn green" onclick="checkout()">Claim My Protocol &amp; Discount →</button>
+     <div class="guar"><b>60-Day Happiness Guarantee.</b> Try it — if you're not happy, get your money back. No hassle. <span class="ph">[confirm exact terms]</span></div>
+     <div style="text-align:center;font-size:13px;color:#3f3a45;margin:6px 0">🎁 Free with your 90-day protocol: the <b>3-Day Debloat Reset Guide</b> + the <b>Daily Digestion Rhythm</b> mini-guide. <span class="ph">[demo bonus]</span></div>
+     <div class="trust"><span class="ph">Made in USA</span><span class="ph">Third-party tested</span><span>Free shipping (1st order)</span><span class="ph">4.8★ reviews</span></div>
+   </div>
+
+   <div class="tl">
+     <div style="font-weight:900;color:var(--green);font-size:17px;margin-bottom:6px">What to expect on the 90-day protocol</div>
+     <div class="row"><div class="day">Day 7<br>Relief</div><div class="tx">Many notice things start to move more comfortably and the evening bloat ease first. <span class="ph">[confirm to ingredient]</span></div></div>
+     <div class="row"><div class="day">Day 30<br>Rhythm</div><div class="tx">A more regular, predictable rhythm; the heavy, backed-up feeling settles down. <span class="ph">[confirm]</span></div></div>
+     <div class="row"><div class="day">Day 90<br>Ease</div><div class="tx">Comfortable, consistent digestion and a lighter-feeling belly as part of a healthy lifestyle. <span class="ph">[confirm]</span></div></div>
+   </div>
+
+   <div style="font-weight:900;color:var(--green);font-size:17px;margin:8px 0 6px;text-align:center">Real people. Real results.</div>
+   <div class="tcard"><div class="qt">"<span class="ph">[Sample testimonial — replace with a real, on-file Tummy Focus review]</span>"</div><div class="who">Sample · demo</div></div>
+   <div class="tcard"><div class="qt">"<span class="ph">[Sample testimonial — replace with a real, on-file Tummy Focus review]</span>"</div><div class="who">Sample · demo</div></div>
+   <div class="disc">Individual results vary. These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</div>`;
+  track('OfferViewed', {tier:tier, recommended:answers.recommended_offer});
+}
+let plan = null;
+function selPlan(p){ plan=p; document.querySelectorAll('.plan').forEach(el=>el.classList.remove('sel')); document.getElementById(p==='sub'?'p-sub':p==='bundle'?'p-bundle':'p-one').classList.add('sel'); }
+function checkout(){
+  const chosen = plan || (answers.recommended_offer==='bundle'?'bundle':'sub');
+  track('AddToCart',{plan:chosen}); track('Purchase',{plan:chosen, demo:true});
+  const label = chosen==='bundle'?'Complete Gut-Reset Bundle':chosen==='one'?'single bottle':'90-Day Subscribe & Save';
+  document.getElementById('confirm-line').innerHTML = 'Your <b>'+label+'</b> is on its way. (Demo — no payment taken.)';
+  show('s-confirm'); setProg(100);
+  /* TODO(DEV): window.location = REAL_CART_URL[chosen]  (Shopify cart / subscription endpoint) */
+}
+</script>
+</body>
+</html>
