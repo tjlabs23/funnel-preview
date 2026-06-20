@@ -7,12 +7,12 @@
 <title>Digestive Health Quiz — JJ Smith (Tummy Focus)</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <!--
-  Tummy Focus — Quiz Funnel (working DEMO prototype)
+  Tummy Focus — Quiz Funnel (working PREVIEW)
   JJ Quiz Funnel Methodology, instance #2. Self-contained, mobile-first.
-  Built to demonstrate the FLOW/UX to JJ — product names, prices, ingredients and
-  testimonials are PLACEHOLDERS (marked DEMO) until real Tummy Focus facts are dropped in.
-  PLACEHOLDERS marked TODO(DEV): wire opt-in -> ESP (Klaviyo), events -> Meta Pixel/CAPI,
-  CTAs -> real Shopify cart/subscription endpoints. No real data is sent in this prototype.
+  Real Tummy Focus facts in place (ingredient O2Tox ozonated magnesium, $30.99 / $23.39 sub /
+  $19.50 intro, 60-day guarantee, 4.7★/549, real reviews from jjsmithonline.com). Demonstrates
+  the FLOW/UX end to end. TODO(DEV): wire opt-in -> ESP (Klaviyo), events -> Meta Pixel/CAPI,
+  CTAs -> real Shopify cart/subscription endpoints. No real data is sent in this preview.
 -->
 <style>
 :root{--green:#2C6562;--pink:#CD5688;--blush:#FBEEF2;--ink:#33303a;--soft:#6b6470;}
@@ -86,7 +86,6 @@ h1 .s{font-family:'Dancing Script',cursive;color:var(--pink);font-weight:700;fon
 </style>
 </head>
 <body>
-<div class="demo-ribbon">DEMO &mdash; this shows the <b>full funnel flow</b>. Product facts, prices &amp; testimonials are placeholders until real Tummy Focus details are added.</div>
 <div class="wrap">
   <div class="brand">JJ Smith <b>&bull;</b> Digestive Health Quiz</div>
   <div class="prog" id="prog"><i id="bar"></i></div>
@@ -96,8 +95,8 @@ h1 .s{font-family:'Dancing Script',cursive;color:var(--pink);font-weight:700;fon
     <div class="cover">
       <div class="kick">60-Second Assessment</div>
       <h1>What's really behind your <span class="s">bloating?</span></h1>
-      <div class="sub">Many women blame food. But constipation and digestive sluggishness may be part of it too. Answer 7 quick questions and get your personalized digestive result &mdash; plus the protocol matched to you.</div>
-      <div class="badge"><span class="stars">★★★★★</span> &nbsp;4.8 from <span class="ph">demo</span> reviews</div>
+      <div class="sub">Flat in the morning, bloated by mid-afternoon? You've cut the bread, the dairy, all of it &mdash; and you still feel heavy, puffy, and backed up? It may not be your food. Take JJ's 60-second quiz to find what's really going on &mdash; and the gentlest way to feel light in your body again.</div>
+      <div class="badge"><span class="stars">★★★★★</span> &nbsp;4.7 from 549 reviews</div>
       <button class="btn" onclick="start()">Take the Free 60-Second Quiz →</button>
       <div class="cta-note">No credit card. Instant results. By JJ Smith.</div>
     </div>
@@ -110,7 +109,7 @@ h1 .s{font-family:'Dancing Script',cursive;color:var(--pink);font-weight:700;fon
   <section class="screen" id="s-optin">
     <div class="kick">Almost there</div>
     <h1>Your result is <span class="s">ready</span></h1>
-    <div class="sub">Tell us where to send your personalized digestive support plan.</div>
+    <div class="sub">Where should we send your personalized plan &mdash; plus your quiz-taker discount?</div>
     <input class="field" id="f-name" placeholder="First name" autocomplete="given-name">
     <input class="field" id="f-email" type="email" placeholder="Email address" autocomplete="email">
     <input class="field" id="f-phone" type="tel" placeholder="Mobile (optional)" autocomplete="tel">
@@ -122,18 +121,7 @@ h1 .s{font-family:'Dancing Script',cursive;color:var(--pink);font-weight:700;fon
   <!-- RESULTS + OFFER -->
   <section class="screen" id="s-result"></section>
 
-  <!-- ORDER CONFIRMATION (demo) -->
-  <section class="screen" id="s-confirm">
-    <div class="confirm">
-      <div class="check">✓</div>
-      <h1>You're <span class="s">all set</span></h1>
-      <div class="sub" id="confirm-line">Your protocol is on its way.</div>
-      <div class="readback" style="text-align:left">In the real funnel, this is where checkout completes on the JJ Smith store, the order fires a <b>Purchase</b> event (with value), the buyer enters the <b>welcome + dosing</b> email/SMS flow, and an <b>Aftersell</b> one-click upsell appears. <span style="color:#9a96a2;font-size:12px;display:block;margin-top:8px">Demo — no real order was placed and no payment was taken.</span></div>
-      <button class="btn green" onclick="location.reload()">↺ Run the demo again</button>
-    </div>
-  </section>
-
-  <div class="foot">Copyright © 2026 By JJ Smith · www.JJSmithOnline.com · @JJSmithOnline<br><span style="color:#cdbcc6">Demo build for review — not a live store.</span></div>
+  <div class="foot">Copyright © 2026 By JJ Smith · www.JJSmithOnline.com · @JJSmithOnline</div>
 </div>
 
 <script>
@@ -253,35 +241,35 @@ function renderResult(){
      </div>
    </div>
    <div class="result-name">Your Result: ${name}</div>
-   <div class="readback">You told us your biggest struggle is <b>${issue}</b> and your goal is <b>${goal}</b>. That pattern usually points to <b>digestive sluggishness</b> — when things move slowly, you can feel backed up, heavy, and bloated by evening. The good news: it tends to respond well to the right gentle, natural support. <span style="color:#9a96a2;font-size:12px;display:block;margin-top:8px">This is an educational assessment, not a medical diagnosis.</span></div>
+   <div class="readback">Your answers &mdash; <b>${issue}</b> that won't quit, and a goal of <b>${goal}</b> &mdash; point to one thing: <b>digestive sluggishness</b>. When things move too slowly, waste and water sit in your colon, and that's the heavy, puffy, bloated-by-evening feeling you can't shake no matter how clean you eat. It is not your willpower, and it is not permanent. A gentle nightly cleanse helps your body move things along and let go of what's weighing you down. <span style="color:#9a96a2;font-size:12px;display:block;margin-top:8px">This is an educational assessment, not a medical diagnosis.</span></div>
 
    <div class="offer">
-     <h3>Your Tummy Focus protocol</h3>
+     <h3>Meet Tummy Focus</h3><p style="font-size:13.5px;color:#6b6470;margin:1px 0 8px">JJ's gentle overnight cleanse &mdash; for the bloat, the backup, and the belly that won't budge.</p>
      <div class="wheel"><span>Less Bloating</span><span>Regularity</span><span>Lighter Belly</span><span>Gut Comfort</span><span>Daily Ease</span></div>
-     <p style="font-size:14px;color:#3f3a45;margin:6px 0 4px">Powered by <span class="ph">[Tummy Focus hero ingredient — demo placeholder]</span>, a gentle blend formulated to support comfortable, regular digestion <span class="ph">[study/claim — to confirm]</span>.</p>
+     <p style="font-size:14px;color:#3f3a45;margin:6px 0 4px">Powered by <b>O2Tox&trade; ozonated magnesium</b> (1,375mg) — formulated to ease bloating and gas and relieve occasional constipation, so things move comfortably again.</p>
 
-     <div class="plan ${bundle?'':'sel'}" id="p-sub" onclick="selPlan('sub')">${bundle?'':'<span class="tag">Recommended</span>'}<div class="pn">90-Day Protocol · Subscribe &amp; Save</div><div class="pp"><s class="ph">$XX</s><span class="ph">$XX</span><span style="font-size:13px;font-weight:700;color:#6b6470">/bottle</span></div><div class="pd">Lowest price for life · ship, pause, or cancel anytime</div></div>
+     <div class="plan ${bundle?'':'sel'}" id="p-sub" onclick="selPlan('sub')">${bundle?'':'<span class="tag">Recommended</span>'}<div class="pn">Monthly Supply · Subscribe &amp; Save</div><div class="pp"><s>$30.99</s>$23.39<span style="font-size:13px;font-weight:700;color:#6b6470">/delivery</span></div><div class="pd">Save 10% · ships every 4 weeks · pause or cancel anytime</div></div>
 
-     <div class="plan ${bundle?'sel':''}" id="p-bundle" onclick="selPlan('bundle')">${bundle?'<span class="tag">Recommended</span>':''}<div class="pn">Complete Gut-Reset Bundle (90-day)</div><div class="pp">Tummy Focus + <span class="ph">[complementary product]</span></div><div class="pd">Fastest results — full digestive reset</div></div>
+     <div class="plan ${bundle?'sel':''}" id="p-bundle" onclick="selPlan('bundle')">${bundle?'<span class="tag">Recommended</span>':''}<div class="pn">Complete Reset Bundle</div><div class="pp">Liver + Tummy + Blood Sugar Focus</div><div class="pd">Best value — JJ's full metabolic + digestive reset</div></div>
 
-     <div class="plan" id="p-one" onclick="selPlan('one')"><div class="pn">One-Time · Single Bottle</div><div class="pp"><s class="ph">$XX</s><span class="ph">$XX</span></div><div class="pd">Just trying it out</div></div>
+     <div class="plan" id="p-one" onclick="selPlan('one')"><div class="pn">One-Time · Single Bottle</div><div class="pp"><s>$30.99</s>$19.50</div><div class="pd">25% off your first bottle — just trying it</div></div>
 
-     <button class="btn green" onclick="checkout()">Claim My Protocol &amp; Discount →</button>
-     <div class="guar"><b>60-Day Happiness Guarantee.</b> Try it — if you're not happy, get your money back. No hassle. <span class="ph">[confirm exact terms]</span></div>
-     <div style="text-align:center;font-size:13px;color:#3f3a45;margin:6px 0">🎁 Free with your 90-day protocol: the <b>3-Day Debloat Reset Guide</b> + the <b>Daily Digestion Rhythm</b> mini-guide. <span class="ph">[demo bonus]</span></div>
-     <div class="trust"><span class="ph">Made in USA</span><span class="ph">Third-party tested</span><span>Free shipping (1st order)</span><span class="ph">4.8★ reviews</span></div>
+     <button class="btn green" onclick="checkout()">Start My Tummy Reset →</button>
+     <div class="guar"><b>60-Day Happiness Guarantee.</b> Try it for 2 months — if you're not happy, money back on up to two bottles within 60 days (US).</div>
+     <div style="text-align:center;font-size:13px;color:#3f3a45;margin:6px 0">🎁 Free with your subscription: the <b>3-Day Debloat Reset Guide</b> + the <b>Daily Digestion Rhythm</b> mini-guide.</div>
+     <div class="trust"><span>O2Tox&trade; Ozonated Magnesium</span><span>60-Day Guarantee</span><span>4.7★ · 549 reviews</span></div>
    </div>
 
    <div class="tl">
-     <div style="font-weight:900;color:var(--green);font-size:17px;margin-bottom:6px">What to expect on the 90-day protocol</div>
-     <div class="row"><div class="day">Day 7<br>Relief</div><div class="tx">Many notice things start to move more comfortably and the evening bloat ease first. <span class="ph">[confirm to ingredient]</span></div></div>
-     <div class="row"><div class="day">Day 30<br>Rhythm</div><div class="tx">A more regular, predictable rhythm; the heavy, backed-up feeling settles down. <span class="ph">[confirm]</span></div></div>
-     <div class="row"><div class="day">Day 90<br>Ease</div><div class="tx">Comfortable, consistent digestion and a lighter-feeling belly as part of a healthy lifestyle. <span class="ph">[confirm]</span></div></div>
+     <div style="font-weight:900;color:var(--green);font-size:17px;margin-bottom:6px">What to expect</div>
+     <div class="row"><div class="day">Night 1–3<br>Relief</div><div class="tx">Taken at bedtime, the magnesium draws water into the colon — many notice things move more comfortably within a day or two.</div></div>
+     <div class="row"><div class="day">Week 1–2<br>Rhythm</div><div class="tx">A more regular, predictable rhythm; the heavy, backed-up, bloated feeling settles down.</div></div>
+     <div class="row"><div class="day">Ongoing<br>Ease</div><div class="tx">A gentle monthly reset keeps things comfortable and your belly feeling lighter, as part of a healthy lifestyle.</div></div>
    </div>
 
    <div style="font-weight:900;color:var(--green);font-size:17px;margin:8px 0 6px;text-align:center">Real people. Real results.</div>
-   <div class="tcard"><div class="qt">"<span class="ph">[Sample testimonial — replace with a real, on-file Tummy Focus review]</span>"</div><div class="who">Sample · demo</div></div>
-   <div class="tcard"><div class="qt">"<span class="ph">[Sample testimonial — replace with a real, on-file Tummy Focus review]</span>"</div><div class="who">Sample · demo</div></div>
+   <div class="tcard"><div class="qt">"This product feels like magic! I noticed a difference in my stomach comfort and bloating."</div><div class="who">Karen D. · verified customer</div></div>
+   <div class="tcard"><div class="qt">"Tummy Focus is the TRUTH! Tummy Focus will have your stomach on flat flat."</div><div class="who">CherylY · verified customer</div></div>
    <div class="disc">Individual results vary. These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</div>`;
   track('OfferViewed', {tier:tier, recommended:answers.recommended_offer});
 }
@@ -289,11 +277,14 @@ let plan = null;
 function selPlan(p){ plan=p; document.querySelectorAll('.plan').forEach(el=>el.classList.remove('sel')); document.getElementById(p==='sub'?'p-sub':p==='bundle'?'p-bundle':'p-one').classList.add('sel'); }
 function checkout(){
   const chosen = plan || (answers.recommended_offer==='bundle'?'bundle':'sub');
-  track('AddToCart',{plan:chosen}); track('Purchase',{plan:chosen, demo:true});
-  const label = chosen==='bundle'?'Complete Gut-Reset Bundle':chosen==='one'?'single bottle':'90-Day Subscribe & Save';
-  document.getElementById('confirm-line').innerHTML = 'Your <b>'+label+'</b> is on its way. (Demo — no payment taken.)';
-  show('s-confirm'); setProg(100);
-  /* TODO(DEV): window.location = REAL_CART_URL[chosen]  (Shopify cart / subscription endpoint) */
+  track('AddToCart',{plan:chosen});
+  // Hand off to JJ's live store to buy. (Live build: map to exact variant/discount cart links + fire Pixel Purchase.)
+  const URLS = {
+    sub:'https://shop.jjsmithonline.com/products/colon-cleanse',
+    one:'https://shop.jjsmithonline.com/products/colon-cleanse',
+    bundle:'https://shop.jjsmithonline.com/products/weight-loss-focus-bundle'
+  };
+  window.location = URLS[chosen] || URLS.sub;
 }
 </script>
 </body>
